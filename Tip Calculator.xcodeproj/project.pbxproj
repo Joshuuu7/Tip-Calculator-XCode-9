@@ -99,6 +99,7 @@
 				TargetAttributes = {
 					420CEF901F86C5D800DB9618 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 58V3WNR72P;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
@@ -277,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 58V3WNR72P;
 				INFOPLIST_FILE = "Tip Calculator/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.niu.cs.z1682720.Tip-Calculator";
@@ -291,6 +293,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 58V3WNR72P;
 				INFOPLIST_FILE = "Tip Calculator/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.niu.cs.z1682720.Tip-Calculator";
