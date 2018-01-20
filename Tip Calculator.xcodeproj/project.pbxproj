@@ -12,6 +12,7 @@
 		420CEF9A1F86C5D900DB9618 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420CEF981F86C5D900DB9618 /* Main.storyboard */; };
 		420CEF9C1F86C5D900DB9618 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 420CEF9B1F86C5D900DB9618 /* Assets.xcassets */; };
 		420CEF9F1F86C5D900DB9618 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 420CEF9D1F86C5D900DB9618 /* LaunchScreen.storyboard */; };
+		4223405E1F95DA5F00996043 /* TipCalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4223405D1F95DA5F00996043 /* TipCalculatorBrain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		420CEF9B1F86C5D900DB9618 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		420CEF9E1F86C5D900DB9618 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		420CEFA01F86C5D900DB9618 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4223405D1F95DA5F00996043 /* TipCalculatorBrain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipCalculatorBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				420CEF941F86C5D900DB9618 /* AppDelegate.swift */,
 				420CEF961F86C5D900DB9618 /* ViewController.swift */,
+				4223405D1F95DA5F00996043 /* TipCalculatorBrain.swift */,
 				420CEF981F86C5D900DB9618 /* Main.storyboard */,
 				420CEF9B1F86C5D900DB9618 /* Assets.xcassets */,
 				420CEF9D1F86C5D900DB9618 /* LaunchScreen.storyboard */,
@@ -96,6 +99,7 @@
 				TargetAttributes = {
 					420CEF901F86C5D800DB9618 = {
 						CreatedOnToolsVersion = 8.3.3;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -137,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				420CEF971F86C5D900DB9618 /* ViewController.swift in Sources */,
+				4223405E1F95DA5F00996043 /* TipCalculatorBrain.swift in Sources */,
 				420CEF951F86C5D900DB9618 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -264,7 +269,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.niu.cs.z1682720.Tip-Calculator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -276,7 +283,9 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "edu.niu.cs.z1682720.Tip-Calculator";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -299,6 +308,7 @@
 				420CEFA51F86C5D900DB9618 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
