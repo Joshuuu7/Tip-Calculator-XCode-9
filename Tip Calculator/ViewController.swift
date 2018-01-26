@@ -21,11 +21,15 @@ class ViewController: UIViewController, UIApplicationDelegate {
     var billAmount : Float = 0.00
     var percentage = 20
     var partySize = 1
+    var decimalCount = 1
+    var decimalChar = "."
     let totalPercentage : Float = 100
-    
+    var billAmountString: String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        billAmountTextField.delegate = self as? UITextFieldDelegate
+        billAmountTextField.keyboardType = .numberPad
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,11 +45,19 @@ class ViewController: UIViewController, UIApplicationDelegate {
         //billAmount = Float((billAmountTextField.text!))!
             
             if (billAmountTextField.text?.isEmpty)! {
-                
+                billAmountString = "$" + "\(billAmountTextField.text!)"
+                billAmountTextField.text = billAmountString
                 self.tipAmount.text = "$\(billAmount)0"                            // Displays the label as an integer percentage
                 
             }
-            else{
+            
+            /*
+            else if ( billAmountTextField.text
+            */
+                
+            else {
+                billAmountString = "$" + "\(billAmountTextField.text!)"
+                billAmountTextField.text = billAmountString
                 billAmount = Float(billAmountTextField.text!)!
                 let tipDollarAmountHolder = billAmount * percentage / totalPercentage + billAmount
                 
@@ -75,12 +87,12 @@ class ViewController: UIViewController, UIApplicationDelegate {
         }
         else{
             
-            let tipAmount = billAmount * Float(percentage) /  totalPercentage + billAmount 
-            let tipPerPerson = tipAmount/Float(partySize)
+            let tipAmount = billAmount * Float(percentage) / totalPercentage + billAmount
+            let tipPerPerson = tipAmount / Float(partySize)
             
             let tipDollarsPerPerson = String( tipPerPerson )
             
-            let tipDollarAsCurrencyPerPerson = cleanDollars(tipDollarsPerPerson)
+            let tipDollarAsCurrencyPerPerson = cleanDollars( tipDollarsPerPerson )
             
             self.partyAmount.text = "\(tipDollarAsCurrencyPerPerson)"                          // Displays the label as an integer percentage
         }
@@ -105,6 +117,26 @@ class ViewController: UIViewController, UIApplicationDelegate {
         formatter.numberStyle = .currencyAccounting
         return formatter.string(from: NSNumber(value: floatValue)) ?? "$\(floatValue)"
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let oldText = billAmountTextField.text, let r = Range(range, in: oldText) else {
+            return true
+        }
+        
+        let newText = oldText.replacingCharacters(in: r, with: string)
+        let isNumeric = newText.isEmpty || (Double(newText) != nil)
+        let numberOfDots = newText.components(separatedBy: ".").count - 1
+        
+        let numberOfDecimalDigits: Int
+        if let dotIndex = newText.index(of: ".") {
+            numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
+        } else {
+            numberOfDecimalDigits = 0
+        }
+        
+        return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
+    }
+    
 
 }
 
