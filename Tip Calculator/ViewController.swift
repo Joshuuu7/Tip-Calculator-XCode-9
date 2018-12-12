@@ -126,7 +126,7 @@ class ViewController: UIViewController, UIApplicationDelegate {
             //billAmountTextField.text = billAmountString
           
             if Float(billAmountTextField.text!) != nil  {
-                correctTextField(textField: billAmountTextField)
+                correctInputTextField(textField: billAmountTextField)
                 billAmount = Float(billAmountTextField.text!)!
                 let tipDollarAmountHolder = billAmount * percentage / totalPercentage + billAmount
                 
@@ -152,7 +152,7 @@ class ViewController: UIViewController, UIApplicationDelegate {
         textField.text = ""
     }
     
-    func correctTextField( textField: UITextField ) {
+    func correctInputTextField( textField: UITextField ) {
         textField.layer.borderColor = UIColor.clear.cgColor
         textField.layer.borderWidth = 1.0
     }
