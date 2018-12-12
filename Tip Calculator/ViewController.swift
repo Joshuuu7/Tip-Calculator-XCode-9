@@ -10,7 +10,7 @@ import UIKit
 import AudioToolbox
 import AVFoundation
 
-class ViewController: UIViewController, UIApplicationDelegate {
+class ViewController: UIViewController, UIApplicationDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var billAmountTextField: UITextField!
     @IBOutlet weak var tipSlider: UISlider!
@@ -24,6 +24,7 @@ class ViewController: UIViewController, UIApplicationDelegate {
     var percentage = 20
     var partySize = 1
     var decimalCount = 1
+    let zeroDollarPlaceHolder = "$0.00"
     var decimalChar = "."
     var dollarChar = "$"
     let totalPercentage : Float = 100
@@ -40,32 +41,14 @@ class ViewController: UIViewController, UIApplicationDelegate {
         //textField.delegate = self
         billAmountTextField.keyboardType = .decimalPad
         
-        billAmountTextField.delegate = self as? UITextFieldDelegate
+        billAmountTextField.delegate = self
+        billAmountTextField.addTarget(self, action: #selector(textFieldChanged), for:.editingChanged)
         configureBillAmountTextField()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func billAmountTextField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let oldText = textField.text, let r = Range(range, in: oldText) else {
-            return true
-        }
-        
-        let newText = oldText.replacingCharacters(in: r, with: string)
-        let isNumeric = newText.isEmpty || (Double(newText) != nil)
-        let numberOfDots = newText.components(separatedBy: ".").count - 1
-        
-        let numberOfDecimalDigits: Int
-        if let dotIndex = newText.index(of: ".") {
-            numberOfDecimalDigits = newText.distance(from: dotIndex, to: newText.endIndex) - 1
-        } else {
-            numberOfDecimalDigits = 0
-        }
-        
-        return isNumeric && numberOfDots <= 1 && numberOfDecimalDigits <= 2
     }
     
     func errorSoundVibrate() {
@@ -84,8 +67,25 @@ class ViewController: UIViewController, UIApplicationDelegate {
         })
     }
     
+    @objc func textFieldChanged(_ sender:Any) {
+        tipAmount.text = billAmountTextField.text
+        partyAmount.text = billAmountTextField.text
+        
+        if ( billAmountTextField.text == "" || (billAmountTextField.text?.isEmpty)! )
+        {
+            tipAmount.text = zeroDollarPlaceHolder
+            partyAmount.text = zeroDollarPlaceHolder
+        }
+        else
+        {
+            changeTipAmount(tipSlider)
+            changePartyCount(partySizeSlider)
+        }
+    }
+    
     func configureBillAmountTextField() {
         
+        billAmountTextField.placeholder = zeroDollarPlaceHolder
         changeTipAmount(tipSlider)
         changePartyCount(partySizeSlider)
         //textField( _: billAmountTextField, shouldChangeCharactersIn: NSRange(), replacementString: billAmountString)
@@ -124,21 +124,15 @@ class ViewController: UIViewController, UIApplicationDelegate {
         else {
             //billAmountString = "$" + "\(billAmountTextField.text!)"
             //billAmountTextField.text = billAmountString
-          
+            
             if Float(billAmountTextField.text!) != nil  {
                 correctInputTextField(textField: billAmountTextField)
                 billAmount = Float(billAmountTextField.text!)!
                 let tipDollarAmountHolder = billAmount * percentage / totalPercentage + billAmount
-                
                 let tipAmountDollarAsCurrency = String( tipDollarAmountHolder )
-                
                 let tipDollarCurrency = cleanDollars(tipAmountDollarAsCurrency)
-                
                 self.tipAmount.text = "\(tipDollarCurrency)"
-                
-                
             } else {
-                
                 self.errorSoundVibrate()
                 self.showAlertWithoutButton(title: "ERROR!", message: "\n Enter a number with one decimal only.")
                 erroFocusOnTextField(textField: billAmountTextField)
@@ -150,6 +144,8 @@ class ViewController: UIViewController, UIApplicationDelegate {
         textField.layer.borderColor = UIColor.red.cgColor
         textField.layer.borderWidth = 2.0
         textField.text = ""
+        tipAmount.text = zeroDollarPlaceHolder
+        partyAmount.text = zeroDollarPlaceHolder
     }
     
     func correctInputTextField( textField: UITextField ) {
@@ -169,9 +165,7 @@ class ViewController: UIViewController, UIApplicationDelegate {
         partyCount.text = "\(partySize)"     // Displays the value on the partyCount label with the appropriate intervals
         if ( billAmountTextField.text == nil ) {
             
-            
             self.partyAmount.text = "$0.00"                            // Displays the label as an integer percentage
-            
         }
         else{
             
@@ -312,8 +306,6 @@ class ViewController: UIViewController, UIApplicationDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         hideKeyboard()
-        changeTipAmount(tipSlider)
-        changePartyCount(partySizeSlider)
         return true
     }
 
